@@ -1,0 +1,42 @@
+<section id="converter">
+    <div class="container">
+        <h1>Конвертер валют</h1>
+        <form>
+            <div class="block">
+                <p>Я маю</p>
+                <div class="fields">
+                    <input type="number" name="amount1" id="amount1" [(ngModel)]="amount1" (keyup)="onAmount1Changed()"
+                        (click)="onInputFocused($event)">
+                    <button class="menu" value="currency1?.cc" (click)="onButton1Clicked()">
+                        <span class="code">{{currency1?.cc}}</span>&nbsp;{{isCurrency1MenuOpen ?
+                        '&#11205;' : '&#11206;'}}</button>
+                </div>
+                <p>1 {{currency1?.cc}} = {{crossRate | number: '1.0-4'}} {{currency2?.cc}}</p>
+                <div class="currencies" *ngIf="isCurrency1MenuOpen">
+                    <button class="currency" *ngFor="let cur of currencyList$ | async" [value]="cur.cc"
+                        (click)="onCurrency1Changed($event)">
+                        <span class="code">{{cur.cc}}</span> {{cur.txt}}
+                    </button>
+                </div>
+            </div>
+            <div class="block">
+                <p>Я отримаю</p>
+                <div class="fields">
+                    <input type="number" name="amount2" id="amount2" [(ngModel)]="amount2" (keyup)="onAmount2Changed()"
+                        (click)="onInputFocused($event)">
+                    <button class="menu" value="currency2?.cc" (click)="onButton2Clicked()">
+                        <span class="code">{{currency2?.cc}}</span>&nbsp;{{isCurrency2MenuOpen ?
+                        '&#11205;' : '&#11206;'}}
+                    </button>
+                </div>
+                <p>1 {{currency2?.cc}} = {{reverseRate | number: '1.0-4'}} {{currency1?.cc}}</p>
+                <div class="currencies" *ngIf="isCurrency2MenuOpen">
+                    <button class="currency" *ngFor="let cur of currencyList$ | async" [value]="cur.cc"
+                        (click)="onCurrency2Changed($event)">
+                        <span class="code">{{cur.cc}}</span> {{cur.txt}}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

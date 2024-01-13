@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { CurrencyService } from './services/currency.service';
+import { Observable } from 'rxjs';
+import { Currency } from './utils';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'converter';
+export class AppComponent implements OnInit {
+  constructor(private currencyService: CurrencyService) { }
+
+  currencyRates$: Observable<Currency[]> = this.currencyService.getCurrencyRates();
+
+  ngOnInit(): void {
+
+  }
+
 }
